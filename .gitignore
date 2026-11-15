@@ -1,0 +1,12 @@
+.DS_Store
+replay/ppg_replay
+archive/replay-full/replay
+archive/replay-full/test_motion
+archive/replay-full/test_physiology
+archive/replay-full/test_ppg_clock
+archive/replay-full/ppg_replay
+*.o
+*.dSYM/
+__pycache__/
+ios/*.xcworkspace/xcuserdata/
+ios/HealthWatch.xcodeproj/xcuserdata/
