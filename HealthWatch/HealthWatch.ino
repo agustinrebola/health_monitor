@@ -43,10 +43,14 @@ void loop() {
   }
 
   //Read every pulse sample waiting in the sensor FIFO
+  const uint32_t overflowsBefore = ppg.overflows;
   while (ppg.available() && ppg.read()) {
     heart.update(ppg.ir);
     if (rawStream) Serial.printf("%lu,%lu,%lu\n", (unsigned long)micros(), (unsigned long)ppg.red, (unsigned long)ppg.ir);
   }
+
+  //An overflow lost samples, so the waveform has a hole: start the heart rate over
+  if (ppg.overflows != overflowsBefore) heart.reset();
 
   const uint32_t nowMs = millis();
 

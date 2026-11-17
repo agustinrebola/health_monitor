@@ -14,6 +14,7 @@ class MAX30102{
 
   public:
     uint32_t red, ir;                        //Latest sample, 18-bit ADC counts
+    uint32_t overflows;                      //Times the FIFO filled up and was cleared
 
     MAX30102();
 

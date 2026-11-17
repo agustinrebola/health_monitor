@@ -4,6 +4,8 @@ A wrist wearable prototype: ESP32 NodeMCU-32S, MPU6050 (accelerometer and gyro) 
 
 This is the simplified version. The full-featured version (fall detection, diagnostics, CSV recording modes, tests, long documentation) is kept in `archive/`.
 
+A line-by-line study guide to every file, with graphs of how the code behaves, is in [`docs/CODE_GUIDE.md`](docs/CODE_GUIDE.md).
+
 ## Wiring
 
 | Signal | ESP32 pin |

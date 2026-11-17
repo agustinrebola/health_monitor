@@ -6,7 +6,7 @@ static const uint8_t LED_CURRENT = 0x2C;          //44 = 8.8 mA per LED; best wr
 
 MAX30102::MAX30102() {
   ready = false;
-  red = ir = 0;
+  red = ir = overflows = 0;
 }
 
 //Write one register
@@ -45,6 +45,17 @@ bool MAX30102::init() {
 //Samples waiting in the 32-entry FIFO
 uint8_t MAX30102::available() {
   if (!ready) return 0;
+
+  //The FIFO filled up while the loop was busy. A full FIFO has wr == rd, which
+  //looks empty, so it would never be read again. Clear it and start fresh
+  if (readReg(0x05) != 0) {
+    writeReg(0x04, 0);
+    writeReg(0x05, 0);
+    writeReg(0x06, 0);
+    overflows++;
+    return 0;
+  }
+
   const uint8_t wr = readReg(0x04);
   const uint8_t rd = readReg(0x06);
   return (wr - rd) & 0x1F;
